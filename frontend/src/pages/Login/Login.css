@@ -1,4 +1,4 @@
-.signup {
+.login {
     background-color: lightgreen;
     max-width: 500px;
     margin: 80px auto;
@@ -8,7 +8,7 @@
     overflow: hidden;
 }
 
-.signup :Link{
+.login :Link{
     margin: 0;
     display: inline-block;
     width: 50%;
@@ -20,17 +20,18 @@
     cursor: pointer;
 }
 
-.signup h2 {
+.login h2 {
     font-size: 3em;
     color: rgb(62, 62, 62);
 }
-.signup form {
+
+.login form {
     display: flex;
     flex-direction: column;
     margin: auto;
     width: 70%;
 }
-.signup input, button {
+.login input, button {
     margin:  10px 0;
     padding: 5px;
     font-size: 1.3em;
@@ -39,10 +40,10 @@
     
 }
 
-.signup button {
+.login button {
     cursor: pointer;
 }
-.signup .error {
+.login .error {
     color: red;
     font-size: 1.3em;
     background-color: white;

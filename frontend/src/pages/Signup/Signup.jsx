@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import './Signup.css'
 
 export default function Signup() {
   const [pseudo, setPseudo] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorPseudo, setErrorPseudo] = useState('')
+  const [errorEmail, setErrorEmail] = useState('')
 
   async function submitForm(e) {
     e.preventDefault()
@@ -25,28 +29,42 @@ export default function Signup() {
 
     const data = await response.json()
     console.log(data)
-    if (data.error.errors.pseudo) console.log('pseudo déja pris ')
-    if (data.error.errors.email) console.log('email déja pris ')
+    if (!response.ok) {
+      if (data.error.errors.pseudo) setErrorPseudo('Pseudo déja utilisé')
+      if (data.error.errors.email) setErrorEmail('Email déja utilisé')
+    }
   }
 
   return (
-    <div>
-      <h1>Inscription</h1>
+    <div className="signup">
+      <div>
+        <Link to="/login">Connexion</Link>
+        <Link to="/">Inscription</Link>
+      </div>
+      <h2>Inscription</h2>
       <form onSubmit={submitForm}>
         <input
           type="text"
+          name="pseudo"
           placeholder="Pseudo"
           minLength={3}
           value={pseudo}
           required
-          onChange={(e) => setPseudo(e.target.value)}
+          onChange={(e) => {
+            setErrorPseudo('')
+            setPseudo(e.target.value)
+          }}
         />
         <input
           type="email"
+          name="email"
           placeholder="Email"
           value={email}
           required
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value)
+            setErrorEmail('')
+          }}
         />
         <input
           type="password"
@@ -58,6 +76,8 @@ export default function Signup() {
         />
         <button>Valider</button>
       </form>
+      {errorPseudo && <p className="error">{errorPseudo}</p>}
+      {errorEmail && <p className="error">{errorEmail}</p>}
     </div>
   )
 }
