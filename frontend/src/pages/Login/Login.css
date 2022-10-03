@@ -8,7 +8,7 @@
     overflow: hidden;
 }
 
-.login :Link{
+.login a{
     margin: 0;
     display: inline-block;
     width: 50%;
