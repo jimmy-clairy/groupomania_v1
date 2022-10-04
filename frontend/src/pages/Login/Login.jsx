@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import './Login.css'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [data, setData] = useState('')
   const [errorTxt, setErrorTxt] = useState('')
+  const navigate = useNavigate()
 
   async function submitForm(e) {
     e.preventDefault()
@@ -14,8 +14,6 @@ export default function Login() {
       email: email,
       password: password,
     }
-
-    console.log(infoUser)
 
     const response = await fetch('http://localhost:7000/api/user/login/', {
       method: 'POST',
@@ -26,8 +24,14 @@ export default function Login() {
     })
 
     const dataRes = await response.json()
-    console.log(dataRes)
-    setData(dataRes)
+
+    localStorage.setItem('userId', dataRes.userId)
+    localStorage.setItem('token', dataRes.token)
+
+    if (dataRes.userId && dataRes.token) {
+      navigate('/home')
+    }
+
     if (!response.ok) {
       if (dataRes.message) setErrorTxt(dataRes.message)
     }
@@ -36,8 +40,15 @@ export default function Login() {
   return (
     <div className="login">
       <div>
-        <Link to="/login">Connexion</Link>
-        <Link to="/">Inscription</Link>
+        <NavLink
+          to="/login"
+          className={({ isActive }) => {
+            return isActive && 'activeLink'
+          }}
+        >
+          Connexion
+        </NavLink>
+        <NavLink to="/">Inscription</NavLink>
       </div>
       <h2>Connexion</h2>
       <form onSubmit={submitForm}>
@@ -65,7 +76,6 @@ export default function Login() {
         />
         <button>Valider</button>
       </form>
-      {data && <p>UserId : {data.userId}</p>}
       {errorTxt && <p className="error">{errorTxt}</p>}
     </div>
   )
