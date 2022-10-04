@@ -5,8 +5,14 @@
     display: flex;
     align-items: center;
     color: rgb(62, 62, 62);
+    display: flex;
+    justify-content: space-between;
 }
 
 .header h1 {
     font-weight: 800;
+}
+
+.header button {
+    cursor: pointer;
 }

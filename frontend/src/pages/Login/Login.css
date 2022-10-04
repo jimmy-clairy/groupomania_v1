@@ -13,6 +13,7 @@
     display: inline-block;
     width: 50%;
     text-decoration: none;
+    color: rgb(62, 62, 62);
     font-size: 1.4em;
     font-weight: 700;
     padding: 15px 0;
@@ -51,4 +52,7 @@
     width: 70%;
     margin: 10px auto;
     border-radius: 5px;
+}
+.login .activeLink{
+    background-color: lightgreen;
 }
