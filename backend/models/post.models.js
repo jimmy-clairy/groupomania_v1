@@ -13,6 +13,7 @@ const postSchema = mongoose.Schema(
         },
         imageUrl: {
             type: String,
+            default: "http://www.ipsgroup.fr/wp-content/uploads/2013/12/default_image_01-1024x1024-570x321.png"
         },
         likers: {
             type: [String]

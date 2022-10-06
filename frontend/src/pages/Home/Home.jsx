@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Card from '../../components/Card/Card'
 import Form from '../../components/Form/Form'
 
 export default function Home() {
@@ -33,11 +34,7 @@ export default function Home() {
       <Form />
       <div>
         {data.map((post) => (
-          <div key={post._id}>
-            <img src={post.imageUrl} alt="img du post" />
-            <h5>{post.imageUrl}</h5>
-            <h3>{post.post}</h3>
-          </div>
+          <Card key={post._id} post={post.post} imageUrl={post.imageUrl} />
         ))}
       </div>
     </div>
