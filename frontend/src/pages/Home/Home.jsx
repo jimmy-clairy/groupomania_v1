@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Card from '../../components/Card/Card'
 import Form from '../../components/Form/Form'
+import './Home.css'
 
 export default function Home() {
   const navigate = useNavigate()
   const userId = localStorage.getItem('userId')
   const token = localStorage.getItem('token')
-  const [data, setData] = useState([])
 
   useEffect(() => {
     if (!userId || !token) {
@@ -15,28 +15,10 @@ export default function Home() {
     }
   }, [userId, token, navigate])
 
-  useEffect(() => {
-    fetch('http://localhost:7000/api/post', {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    })
-      .then((res) => res.json())
-      .then((dataRes) => {
-        console.log(dataRes)
-        setData(dataRes)
-      })
-      .catch((err) => console.log({ message: err }))
-  }, [token])
-
   return (
-    <div>
+    <div className="Home">
       <Form />
-      <div>
-        {data.map((post) => (
-          <Card key={post._id} post={post.post} imageUrl={post.imageUrl} />
-        ))}
-      </div>
+      <Card />
     </div>
   )
 }

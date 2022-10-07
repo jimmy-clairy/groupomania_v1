@@ -26,6 +26,7 @@ export default function Form() {
       .then((res) => res.json())
       .then((dataRes) => {
         console.log(dataRes)
+        window.location.reload()
       })
       .catch((err) => console.log({ message: err }))
   }
