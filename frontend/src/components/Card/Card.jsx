@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Delete from '../Delete/Delete'
+import Delete from '../Delete/DeletePost'
 import './Card.css'
 
 export default function Card() {
   const token = localStorage.getItem('token')
+  const userId = localStorage.getItem('userId')
   const [data, setData] = useState([])
 
   useEffect(() => {
@@ -13,11 +14,11 @@ export default function Card() {
       },
     })
       .then((res) => res.json())
-      .then((dataRes) => {
-        setData(dataRes)
+      .then((dataResponse) => {
+        setData(dataResponse)
       })
       .catch((err) => console.log({ message: err }))
-  }, [token])
+  }, [token, data])
 
   return (
     <div className="Card__container">
@@ -25,8 +26,16 @@ export default function Card() {
         <div className="Card" key={item._id}>
           <img src={item.imageUrl} alt="img post" />
           <div className="text">
-            <p>{item.post}</p>
-            <Delete postId={item._id} />
+            <div>
+              <h5>{item.posterId}</h5>
+              <p>{item.post}</p>
+            </div>
+
+            {userId === item.posterId && (
+              <div className="icon">
+                <Delete postId={item._id} />
+              </div>
+            )}
           </div>
         </div>
       ))}

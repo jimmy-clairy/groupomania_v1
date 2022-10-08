@@ -7,28 +7,28 @@ export default function Form() {
   const [post, setPost] = useState('')
   const [image, setImage] = useState('')
 
-  function submitForm(e) {
+  const submitForm = async (e) => {
     e.preventDefault()
 
     const data = new FormData()
     data.append('image', image)
     data.append('post', post)
 
-    console.log(data)
-
-    fetch('http://localhost:7000/api/post', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-      body: data,
-    })
-      .then((res) => res.json())
-      .then((dataRes) => {
-        console.log(dataRes)
-        window.location.reload()
+    try {
+      const response = await fetch('http://localhost:7000/api/post', {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        body: data,
       })
-      .catch((err) => console.log({ message: err }))
+
+      const dataRes = await response.json()
+      console.log(dataRes)
+      setPost('')
+    } catch (error) {
+      console.log({ message: 'Bad url' })
+    }
   }
   return (
     <div className="Form">

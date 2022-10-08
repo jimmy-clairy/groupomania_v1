@@ -41,14 +41,14 @@ export default function Login() {
     <div className="login">
       <div>
         <NavLink
-          to="/login"
+          to="/"
           className={({ isActive }) => {
             return isActive && 'activeLink'
           }}
         >
           Connexion
         </NavLink>
-        <NavLink to="/">Inscription</NavLink>
+        <NavLink to="/signup">Inscription</NavLink>
       </div>
       <h2>Connexion</h2>
       <form onSubmit={submitForm}>

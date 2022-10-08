@@ -1,8 +1,8 @@
 import React from 'react'
 import iconDelete from '../../assets/bin.png'
-import './Delete.css'
+import './DeletePost.css'
 
-export default function Delete(props) {
+export default function DeletePost(props) {
   const token = localStorage.getItem('token')
 
   async function deletePost(postId) {
@@ -15,7 +15,6 @@ export default function Delete(props) {
 
     const dataRes = await response.json()
     console.log(dataRes)
-    window.location.reload()
   }
 
   return (

@@ -12,6 +12,7 @@ export default function Signup() {
 
   async function submitForm(e) {
     e.preventDefault()
+
     const infoUser = {
       pseudo: pseudo,
       email: email,
@@ -41,6 +42,7 @@ export default function Signup() {
 
       localStorage.setItem('userId', dataRes.userId)
       localStorage.setItem('token', dataRes.token)
+
       if (dataRes.userId && dataRes.token) navigate('/home')
     } else {
       if (dataRes.error.errors.pseudo) setErrorPseudo('Pseudo déja utilisé')
@@ -51,9 +53,9 @@ export default function Signup() {
   return (
     <div className="signup">
       <div>
-        <NavLink to="/login">Connexion</NavLink>
+        <NavLink to="/">Connexion</NavLink>
         <NavLink
-          to="/"
+          to="/signup"
           className={({ isActive }) => {
             return isActive && 'activeLink'
           }}
