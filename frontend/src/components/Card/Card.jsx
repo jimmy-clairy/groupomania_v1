@@ -8,37 +8,40 @@ export default function Card() {
   const [data, setData] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:7000/api/post', {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    })
-      .then((res) => res.json())
-      .then((dataResponse) => {
-        setData(dataResponse)
+    const fetchData = async () => {
+      const response = await fetch('http://localhost:7000/api/post', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
       })
-      .catch((err) => console.log({ message: err }))
+      const dataResponse = await response.json()
+      setData(dataResponse)
+    }
+
+    fetchData().catch(() => console.log({ message: 'Bad url' }))
   }, [token, data])
 
   return (
     <div className="Card__container">
-      {data.map((item) => (
-        <div className="Card" key={item._id}>
-          <img src={item.imageUrl} alt="img post" />
-          <div className="text">
-            <div>
-              <h5>{item.posterId}</h5>
-              <p>{item.post}</p>
-            </div>
-
-            {userId === item.posterId && (
-              <div className="icon">
-                <Delete postId={item._id} />
+      {data.map((item) => {
+        return (
+          <div className="Card" key={item._id}>
+            <img src={item.imageUrl} alt="img post" />
+            <div className="text">
+              <div>
+                <h5>{item.posterId}</h5>
+                <p>{item.post}</p>
               </div>
-            )}
+
+              {userId === item.posterId && (
+                <div className="icon">
+                  <Delete postId={item._id} />
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

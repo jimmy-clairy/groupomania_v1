@@ -8,8 +8,9 @@ export default function Login() {
   const [errorTxt, setErrorTxt] = useState('')
   const navigate = useNavigate()
 
-  async function submitForm(e) {
+  const submitForm = async (e) => {
     e.preventDefault()
+
     const infoUser = {
       email: email,
       password: password,
@@ -28,11 +29,11 @@ export default function Login() {
     localStorage.setItem('userId', dataRes.userId)
     localStorage.setItem('token', dataRes.token)
 
-    if (dataRes.userId && dataRes.token) {
-      navigate('/home')
-    }
-
-    if (!response.ok) {
+    if (response.ok) {
+      if (dataRes.userId && dataRes.token) {
+        navigate('/home')
+      }
+    } else {
       if (dataRes.message) setErrorTxt(dataRes.message)
     }
   }

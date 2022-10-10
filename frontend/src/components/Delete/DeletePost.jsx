@@ -5,7 +5,7 @@ import './DeletePost.css'
 export default function DeletePost(props) {
   const token = localStorage.getItem('token')
 
-  async function deletePost(postId) {
+  const deletePost = async (postId) => {
     const response = await fetch(`http://localhost:7000/api/post/${postId}`, {
       method: 'DELETE',
       headers: {

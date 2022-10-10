@@ -10,7 +10,7 @@ export default function Signup() {
   const [errorEmail, setErrorEmail] = useState('')
   const navigate = useNavigate()
 
-  async function submitForm(e) {
+  const submitForm = async (e) => {
     e.preventDefault()
 
     const infoUser = {
