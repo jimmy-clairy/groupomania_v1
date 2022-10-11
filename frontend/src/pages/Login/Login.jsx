@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Cookies from 'js-cookie'
 import { NavLink, useNavigate } from 'react-router-dom'
 import './Login.css'
 
@@ -27,7 +28,7 @@ export default function Login() {
     const dataRes = await response.json()
 
     localStorage.setItem('userId', dataRes.userId)
-    localStorage.setItem('token', dataRes.token)
+    Cookies.set('token', dataRes.token, { expires: 1 })
 
     if (response.ok) {
       if (dataRes.userId && dataRes.token) {

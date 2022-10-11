@@ -1,9 +1,10 @@
 import React from 'react'
+import Cookies from 'js-cookie'
 import iconDelete from '../../assets/bin.png'
 import './DeletePost.css'
 
 export default function DeletePost(props) {
-  const token = localStorage.getItem('token')
+  const token = Cookies.get('token')
 
   const deletePost = async (postId) => {
     const response = await fetch(`http://localhost:7000/api/post/${postId}`, {

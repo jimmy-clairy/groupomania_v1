@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import Cookies from 'js-cookie'
 import './Form.css'
 
 export default function Form() {
-  const token = localStorage.getItem('token')
+  const token = Cookies.get('token')
 
   const [post, setPost] = useState('')
   const [image, setImage] = useState('')

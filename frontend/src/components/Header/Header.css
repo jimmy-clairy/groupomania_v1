@@ -7,6 +7,12 @@
     color: rgb(62, 62, 62);
     display: flex;
     justify-content: space-between;
+    transition: all 1.5s;
+}
+
+.Admin {
+    background-color: lightcoral;
+    height: 170px;
 }
 
 .Header h1 {

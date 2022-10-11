@@ -1,4 +1,5 @@
 const PostModel = require('../models/post.models');
+const UserModel = require('../models/user.models')
 const ObjectID = require("mongoose").Types.ObjectId;
 const fs = require('fs');
 
@@ -36,19 +37,23 @@ exports.deleteOnePost = (req, res) => {
     if (!ObjectID.isValid(req.params.id))
         return res.status(400).send("ID inconnu : " + req.params.id);
 
-    PostModel.findById(req.params.id)
-        .then((post) => {
-            if (post.posterId === req.auth.userId) {
-                // Supprime l'image
-                const filename = post.imageUrl.split('/images/')[1];
-                fs.unlink(`images/${filename}`, () => {
-                    PostModel.findByIdAndDelete(req.params.id)
-                        .then(() => { res.status(200).json({ message: 'Delete post !' }) })
-                        .catch(error => res.status(401).json({ error }));
-                });
-            } else {
-                return res.status(201).json({ message: 'No authorize !' })
-            }
+    UserModel.findById(req.auth.userId).select('admin')
+        .then((user) => {
+            PostModel.findById(req.params.id)
+                .then((post) => {
+                    if (user.admin || (post.posterId === req.auth.userId)) {
+                        // Supprime l'image
+                        const filename = post.imageUrl.split('/images/')[1];
+                        fs.unlink(`images/${filename}`, () => {
+                            PostModel.findByIdAndDelete(req.params.id)
+                                .then(() => { res.status(200).json({ message: 'Delete post !' }) })
+                                .catch(error => res.status(401).json({ error }));
+                        });
+                    } else {
+                        return res.status(201).json({ message: 'No authorize !' })
+                    }
+                })
+                .catch(error => { res.status(400).json({ error }) })
         })
         .catch(error => { res.status(400).json({ error }) })
 };

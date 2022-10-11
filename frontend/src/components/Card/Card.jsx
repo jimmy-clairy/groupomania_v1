@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import Cookies from 'js-cookie'
 import Delete from '../Delete/DeletePost'
+import { UserContext } from '../Context/UserContext'
 import './Card.css'
 
 export default function Card() {
-  const token = localStorage.getItem('token')
+  const token = Cookies.get('token')
   const userId = localStorage.getItem('userId')
   const [data, setData] = useState([])
+  const { userCtx } = useContext(UserContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,11 +35,16 @@ export default function Card() {
                 <h5>{item.posterId}</h5>
                 <p>{item.post}</p>
               </div>
-
-              {userId === item.posterId && (
+              {userCtx.admin ? (
                 <div className="icon">
                   <Delete postId={item._id} />
                 </div>
+              ) : (
+                userId === item.posterId && (
+                  <div className="icon">
+                    <Delete postId={item._id} />
+                  </div>
+                )
               )}
             </div>
           </div>

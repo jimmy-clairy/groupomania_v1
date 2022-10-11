@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Cookies from 'js-cookie'
 import { NavLink, useNavigate } from 'react-router-dom'
 import './Signup.css'
 
@@ -41,7 +42,7 @@ export default function Signup() {
       const dataRes = await response.json()
 
       localStorage.setItem('userId', dataRes.userId)
-      localStorage.setItem('token', dataRes.token)
+      Cookies.set('token', dataRes.token, { expires: 1 })
 
       if (dataRes.userId && dataRes.token) navigate('/home')
     } else {
