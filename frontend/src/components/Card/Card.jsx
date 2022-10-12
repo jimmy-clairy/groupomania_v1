@@ -8,7 +8,8 @@ export default function Card() {
   const token = Cookies.get('token')
   const userId = localStorage.getItem('userId')
   const [data, setData] = useState([])
-  const { userCtx } = useContext(UserContext)
+
+  const { userCtx, update } = useContext(UserContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +23,7 @@ export default function Card() {
     }
 
     fetchData().catch(() => console.log({ message: 'Bad url' }))
-  }, [token, data])
+  }, [token, update])
 
   return (
     <div className="Card__container">

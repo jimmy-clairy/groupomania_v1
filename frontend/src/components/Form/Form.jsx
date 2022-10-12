@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Cookies from 'js-cookie'
 import './Form.css'
+import { UserContext } from '../Context/UserContext'
 
 export default function Form() {
   const token = Cookies.get('token')
 
   const [post, setPost] = useState('')
   const [image, setImage] = useState('')
+  const { update, setUpdate } = useContext(UserContext)
 
   const submitForm = async (e) => {
     e.preventDefault()
@@ -27,6 +29,7 @@ export default function Form() {
       const dataRes = await response.json()
       console.log(dataRes)
       setPost('')
+      setUpdate(!update)
     } catch (error) {
       console.log({ message: 'Bad url' })
     }
