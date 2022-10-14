@@ -8,6 +8,7 @@ export default function Card() {
   const token = Cookies.get('token')
   const userId = localStorage.getItem('userId')
   const [data, setData] = useState([])
+  const [dataUsers, setDataUsers] = useState([])
 
   const { userCtx, update } = useContext(UserContext)
 
@@ -23,6 +24,21 @@ export default function Card() {
     }
 
     fetchData().catch(() => console.log({ message: 'Bad url' }))
+  }, [token, update])
+
+  useEffect(() => {
+    const fetchDataUsers = async () => {
+      const response = await fetch('http://localhost:7000/api/user', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      const dataResponse = await response.json()
+      setDataUsers(dataResponse)
+      console.log(dataResponse)
+    }
+
+    fetchDataUsers().catch(() => console.log({ message: 'Bad url' }))
   }, [token, update])
 
   return (
