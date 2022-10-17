@@ -45,7 +45,7 @@
     cursor: pointer;
 }
 .login .error {
-    color: red;
+    color: rgb(255, 50, 50);
     font-size: 1.3em;
     background-color: white;
     padding: 5px;
