@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Cookies from 'js-cookie'
 import { NavLink, useNavigate } from 'react-router-dom'
 import './Login.css'
@@ -31,9 +31,7 @@ export default function Login() {
     Cookies.set('token', dataRes.token, { expires: 1 })
 
     if (response.ok) {
-      if (dataRes.userId && dataRes.token) {
-        navigate('/home')
-      }
+      if (dataRes.userId && dataRes.token) navigate('/home')
     } else {
       if (dataRes.message) setErrorTxt(dataRes.message)
     }

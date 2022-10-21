@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import { useState, useContext } from 'react'
 import Cookies from 'js-cookie'
 import './Form.css'
 import { UserContext } from '../Context/UserContext'

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
 import './Header.css'
@@ -10,7 +10,7 @@ export default function Header() {
   const userId = localStorage.getItem('userId')
   const navigate = useNavigate()
 
-  function deconnexion() {
+  const deconnexion = () => {
     localStorage.clear()
     Cookies.remove('token')
     userCtx.admin = false
@@ -45,7 +45,7 @@ export default function Header() {
       <div>
         {token && (
           <div>
-            <button onClick={() => deconnexion()}>Déconnexion</button>
+            <button onClick={deconnexion}>Déconnexion</button>
             <h3>{userCtx.pseudo}</h3>
           </div>
         )}
