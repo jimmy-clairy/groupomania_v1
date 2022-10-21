@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import Cookies from 'js-cookie'
 import Delete from '../Delete/DeletePost'
 import { UserContext } from '../Context/UserContext'
@@ -41,32 +41,36 @@ export default function Card() {
     fetchDataUsers().catch(() => console.log({ message: 'Bad url' }))
   }, [token, update])
 
+  const userPseudo = (id) => {
+    const [user] = dataUsers.filter((user) => user._id === id)
+    return user.pseudo
+  }
+
   return (
     <div className="Card__container">
-      {data.map((item) => {
-        return (
-          <div className="Card" key={item._id}>
-            <img src={item.imageUrl} alt="img post" />
-            <div className="text">
-              <div>
-                <h5>{item.posterId}</h5>
-                <p>{item.post}</p>
+      {data.map((item) => (
+        <div className="Card" key={item._id}>
+          <img src={item.imageUrl} alt="img post" />
+          <div className="text">
+            <div>
+              <h5>{userPseudo(item.posterId)}</h5>
+              <h5>{item.posterId}</h5>
+              <p>{item.post}</p>
+            </div>
+            {userCtx.admin ? (
+              <div className="icon">
+                <Delete postId={item._id} />
               </div>
-              {userCtx.admin ? (
+            ) : (
+              userId === item.posterId && (
                 <div className="icon">
                   <Delete postId={item._id} />
                 </div>
-              ) : (
-                userId === item.posterId && (
-                  <div className="icon">
-                    <Delete postId={item._id} />
-                  </div>
-                )
-              )}
-            </div>
+              )
+            )}
           </div>
-        )
-      })}
+        </div>
+      ))}
     </div>
   )
 }
