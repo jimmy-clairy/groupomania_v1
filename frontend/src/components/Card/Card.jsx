@@ -35,17 +35,19 @@ export default function Card() {
       })
       const dataResponse = await response.json()
       setDataUsers(dataResponse)
-      console.log(dataResponse)
     }
 
     fetchDataUsers().catch(() => console.log({ message: 'Bad url' }))
-  }, [token, update])
+  }, [token, update, data])
 
-  const userPseudo = (id) => {
-    const [user] = dataUsers.filter((user) => user._id === id)
-    return user.pseudo
+  if (data && dataUsers) {
+    for (const post of data) {
+      const [user] = dataUsers.filter((user) => user._id === post.posterId)
+      post.pseudo = user.pseudo
+    }
   }
 
+  console.log('mise a jour')
   return (
     <div className="Card__container">
       {data.map((item) => (
@@ -53,7 +55,7 @@ export default function Card() {
           <img src={item.imageUrl} alt="img post" />
           <div className="text">
             <div>
-              <h5>{userPseudo(item.posterId)}</h5>
+              <h5>{item.pseudo}</h5>
               <h5>{item.posterId}</h5>
               <p>{item.post}</p>
             </div>
