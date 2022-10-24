@@ -7,50 +7,53 @@ import './Card.css'
 export default function Card() {
   const token = Cookies.get('token')
   const userId = localStorage.getItem('userId')
-  const [data, setData] = useState([])
-  const [dataUsers, setDataUsers] = useState([])
+  const [postsData, setPostsData] = useState([])
+  const [usersData, setUsersData] = useState([])
 
   const { userCtx, update } = useContext(UserContext)
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('http://localhost:7000/api/post', {
+    const fetchPosts = async () => {
+      const res = await fetch('http://localhost:7000/api/post', {
         headers: {
           Authorization: 'Bearer ' + token,
         },
       })
-      const dataResponse = await response.json()
-      setData(dataResponse)
+      if (res.ok === true) return res.json()
+      throw new Error('Impossible de contacter le serveur')
     }
 
-    fetchData().catch(() => console.log({ message: 'Bad url' }))
+    fetchPosts().then((data) => setPostsData(data))
   }, [token, update])
 
   useEffect(() => {
-    const fetchDataUsers = async () => {
-      const response = await fetch('http://localhost:7000/api/user', {
+    const fetchUsers = async () => {
+      const res = await fetch('http://localhost:7000/api/user', {
         headers: {
           Authorization: 'Bearer ' + token,
         },
       })
-      const dataResponse = await response.json()
-      setDataUsers(dataResponse)
+      if (res.ok === true) return res.json()
+      throw new Error('Impossible de contacter le serveur')
     }
 
-    fetchDataUsers().catch(() => console.log({ message: 'Bad url' }))
-  }, [token, update, data])
+    fetchUsers().then((data) => setUsersData(data))
+  }, [token, update])
 
-  if (data && dataUsers) {
-    for (const post of data) {
-      const [user] = dataUsers.filter((user) => user._id === post.posterId)
-      post.pseudo = user.pseudo
+  // Add pseudo at posts
+  if (usersData && postsData) {
+    for (const user of usersData) {
+      for (const post of postsData) {
+        if (user._id === post.posterId) {
+          post.pseudo = user.pseudo
+        }
+      }
     }
   }
 
-  console.log('mise a jour')
   return (
     <div className="Card__container">
-      {data.map((item) => (
+      {postsData.map((item) => (
         <div className="Card" key={item._id}>
           <img src={item.imageUrl} alt="img post" />
           <div className="text">
