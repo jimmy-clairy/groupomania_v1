@@ -38,12 +38,28 @@ export default function Form() {
     <div className="Form">
       <h2>Formulaires</h2>
       <form onSubmit={submitForm}>
-        <input
+        {/* <input
           type="file"
           name="file"
           accept=".jpg,.jpeg,.png,"
           onChange={(e) => setImage(e.target.files[0])}
-        />
+        /> */}
+        <div className="input-group ">
+          <div className="input-group-prepend">
+            <span className="input-group-text">Upload</span>
+          </div>
+          <div className="custom-file">
+            <input
+              type="file"
+              className="custom-file-input"
+              id="inputGroupFile01"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
+            <label className="custom-file-label" htmlFor="inputGroupFile01">
+              Choose file
+            </label>
+          </div>
+        </div>
         <input
           className="inputPost"
           type="text"
