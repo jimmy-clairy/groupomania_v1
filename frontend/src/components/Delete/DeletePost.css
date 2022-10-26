@@ -2,4 +2,9 @@
     cursor: pointer;
     height: 30px;
     width: 30px;
+    transition: all 0.5s;
+}
+.Delete .iconDelete:hover {
+    height: 35px;
+    width: 35px;
 }

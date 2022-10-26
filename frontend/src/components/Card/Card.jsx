@@ -59,7 +59,6 @@ export default function Card() {
           <div className="text">
             <div>
               <h5>{item.pseudo}</h5>
-              <h5>{item.posterId}</h5>
               <p>{item.post}</p>
             </div>
             {userCtx.admin ? (
