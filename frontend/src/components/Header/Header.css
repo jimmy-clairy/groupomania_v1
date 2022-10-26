@@ -21,4 +21,10 @@
 
 .Header button {
     cursor: pointer;
+    transition: all 0.4s;
+}
+
+.Header button:hover {
+    color: white;
+    background-color: gray;
 }
