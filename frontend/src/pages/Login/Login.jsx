@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Cookies from 'js-cookie'
 import { NavLink, useNavigate } from 'react-router-dom'
 import './Login.css'
+import { fetchData } from '../../api/fetch'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -17,7 +18,7 @@ export default function Login() {
       password: password,
     }
 
-    const response = await fetch('http://localhost:7000/api/user/login/', {
+    const response = await fetchData('http://localhost:7000/api/user/login/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

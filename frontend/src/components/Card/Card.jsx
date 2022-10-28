@@ -1,11 +1,10 @@
 import { useEffect, useState, useContext } from 'react'
-import Cookies from 'js-cookie'
 import Delete from '../Delete/DeletePost'
 import { UserContext } from '../Context/UserContext'
+import { fetchData } from '../../api/fetch'
 import './Card.css'
 
 export default function Card() {
-  const token = Cookies.get('token')
   const userId = localStorage.getItem('userId')
   const [postsData, setPostsData] = useState([])
   const [usersData, setUsersData] = useState([])
@@ -13,32 +12,24 @@ export default function Card() {
   const { userCtx, update } = useContext(UserContext)
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const res = await fetch('http://localhost:7000/api/post', {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      })
-      if (res.ok === true) return res.json()
-      throw new Error('Impossible de contacter le serveur')
+    const url = 'http://localhost:7000/api/'
+    const forUsers = 'user'
+    const forPosts = 'post'
+
+    async function usersFetch() {
+      const usersData = await fetchData(url + forUsers)
+      setUsersData(usersData)
+      console.log(usersData)
+    }
+    async function postsFetch() {
+      const postsData = await fetchData(url + forPosts)
+      setPostsData(postsData)
+      console.log(postsData)
     }
 
-    fetchPosts().then((data) => setPostsData(data))
-  }, [token, update])
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await fetch('http://localhost:7000/api/user', {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      })
-      if (res.ok === true) return res.json()
-      throw new Error('Impossible de contacter le serveur')
-    }
-
-    fetchUsers().then((data) => setUsersData(data))
-  }, [token, update])
+    usersFetch()
+    postsFetch()
+  }, [update])
 
   // Add pseudo at posts
   if (usersData && postsData) {
@@ -58,7 +49,7 @@ export default function Card() {
           <img src={item.imageUrl} alt="img post" />
           <div className="text">
             <div>
-              <h5>{item.pseudo}</h5>
+              <h4>{item.pseudo}</h4>
               <p>{item.post}</p>
             </div>
             {userCtx.admin ? (

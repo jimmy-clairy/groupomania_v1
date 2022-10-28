@@ -19,6 +19,32 @@
     margin: auto;
 }
 
+.Form .inputfile {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.Form .inputfile:hover {
+    outline: 8px ridge rgba(170, 50, 220, .6);
+    border-radius: 2rem;
+}
+
+.Form .inputfile + label {
+    font-size: 1.25em;
+    font-weight: 500;
+    color: rgb(111, 111, 111);
+    padding-left: 8px;
+    width: 100%;
+    border: solid 1px rgb(96, 96, 96);
+    border-radius: 3px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+
 .Form .inputPost {
     padding: 10px;
     margin-top: 10px;
@@ -27,7 +53,8 @@
 
 .Form button {
     cursor: pointer;
+    transition: 0.4s;
 }
 .Form button:hover {
-    background-color: rgb(219, 219, 219);
+    background-color: lightgreen;
 }

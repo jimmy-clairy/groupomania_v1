@@ -1,6 +1,7 @@
 import { useEffect, useContext } from 'react'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
+import { fetchData } from '../../api/fetch'
 import './Header.css'
 import { UserContext } from '../Context/UserContext'
 
@@ -18,20 +19,13 @@ export default function Header() {
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`http://localhost:7000/api/user/${userId}`, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      })
-
-      const dataResponse = await response.json()
-
-      setUserCtx(dataResponse)
+    const fetch = async () => {
+      const res = await fetchData(`http://localhost:7000/api/user/${userId}`)
+      setUserCtx(res)
     }
 
     if (userId && token) {
-      fetchData()
+      fetch()
     }
   }, [userId, token, setUserCtx])
 
