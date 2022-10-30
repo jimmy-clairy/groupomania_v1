@@ -2,7 +2,6 @@ import { useState } from 'react'
 import Cookies from 'js-cookie'
 import { NavLink, useNavigate } from 'react-router-dom'
 import './Login.css'
-import { fetchData } from '../../api/fetch'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -18,7 +17,7 @@ export default function Login() {
       password: password,
     }
 
-    const response = await fetchData('http://localhost:7000/api/user/login/', {
+    const res = await fetch('http://localhost:7000/api/user/login/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,12 +25,12 @@ export default function Login() {
       body: JSON.stringify(infoUser),
     })
 
-    const dataRes = await response.json()
+    const dataRes = await res.json()
 
     localStorage.setItem('userId', dataRes.userId)
     Cookies.set('token', dataRes.token, { expires: 1 })
 
-    if (response.ok) {
+    if (res.ok) {
       if (dataRes.userId && dataRes.token) navigate('/home')
     } else {
       if (dataRes.message) setErrorTxt(dataRes.message)
