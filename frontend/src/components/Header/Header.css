@@ -4,16 +4,18 @@
     color: rgb(62, 62, 62);
     transition: all 1.5s;
 }
+
 .Header .container {
-    max-width: 840px;
+    max-width: 1240px;
     height: 100%;
     margin: auto;
-    padding: 0 20px;
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
 }
+
 .Admin {
     background-color: lightcoral;
     height: 170px;
