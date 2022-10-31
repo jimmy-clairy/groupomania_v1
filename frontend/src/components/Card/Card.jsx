@@ -49,7 +49,7 @@ export default function Card() {
           <img src={item.imageUrl} alt="img post" />
           <div className="text">
             <div>
-              <h4>{item.pseudo}</h4>
+              <h3>{item.pseudo}</h3>
               <p>{item.post}</p>
             </div>
             {userCtx.admin ? (

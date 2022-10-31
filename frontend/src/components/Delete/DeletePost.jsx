@@ -26,7 +26,11 @@ export default function DeletePost(props) {
         className="iconDelete"
         src={iconDelete}
         alt="Trash"
-        onClick={() => deletePost(props.postId)}
+        onClick={() => {
+          if (window.confirm('La suppression de ce post sera définitive')) {
+            deletePost(props.postId, token)
+          }
+        }}
       />
     </div>
   )

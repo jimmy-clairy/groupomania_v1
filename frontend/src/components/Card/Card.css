@@ -18,8 +18,8 @@
 }
 
 .Card img{
-    width:170px;
-    height:170px;
+    width:150px;
+    height:150px;
     object-fit: cover;
 }
 
@@ -33,4 +33,17 @@
 
 .Card .icon {
     display: flex;
+}
+@media (max-width: 640px) {
+    .Card {
+        display: flex;
+        flex-direction: column;
+    }
+    .Card img{
+        width:100%;
+    }
+    .Card .text {
+        margin-top: 10px;
+        margin-left: 0;
+    }
 }

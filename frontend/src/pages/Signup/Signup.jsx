@@ -71,6 +71,7 @@ export default function Signup() {
           name="pseudo"
           placeholder="Pseudo"
           minLength={3}
+          maxLength={20}
           value={pseudo}
           required
           onChange={(e) => {

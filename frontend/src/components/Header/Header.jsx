@@ -34,16 +34,16 @@ export default function Header() {
 
   return (
     <div className={!userCtx.admin ? 'Header' : 'Header Admin'}>
-      <h1>{title}</h1>
-
-      <div>
-        {token && (
-          <div>
-            <button onClick={deconnexion}>Déconnexion</button>
-            <h3>{userCtx.pseudo}</h3>
-          </div>
-        )}
-      </div>
+      {token ? (
+        <div className="container">
+          <h1>{userCtx.pseudo}</h1>
+          <button onClick={deconnexion}>Déconnexion</button>
+        </div>
+      ) : (
+        <div className="container">
+          <h1>Acceuil</h1>
+        </div>
+      )}
     </div>
   )
 }

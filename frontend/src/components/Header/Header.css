@@ -1,22 +1,27 @@
 .Header {
     background-color: lightgreen;
     height: 120px;
-    padding: 0 50px;
-    display: flex;
-    align-items: center;
     color: rgb(62, 62, 62);
-    display: flex;
-    justify-content: space-between;
     transition: all 1.5s;
 }
-
+.Header .container {
+    max-width: 840px;
+    height: 100%;
+    margin: auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
 .Admin {
     background-color: lightcoral;
     height: 170px;
 }
 
 .Header h1 {
-    font-weight: 800;
+    font-weight: 700;
+    margin-right: 50px;
 }
 
 .Header button {

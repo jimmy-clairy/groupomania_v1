@@ -58,3 +58,9 @@
 .Form button:hover {
     background-color: lightgreen;
 }
+
+@media ( max-width:640px) {
+    .Form form {
+        width: 100%;
+    }
+}
